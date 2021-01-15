@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--1、基本使用：绑定属性-->
+  <img v-bind:src="imgUrl" alt="">
+  <hr>
+  <a v-bind:href="aHref">百度一下</a>
+  <br>
+  <!--2、语法糖：：-->
+  <a :href="aHref">百度一下-语法糖</a>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el : '#app',
+    data : {
+      message : "Hello word",
+      imgUrl : "../img/logo.png",
+      aHref : "http://www.baidu.com"
+    }
+  })
+</script>
+
+</body>
+</html>
