@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .colorClass{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!--点击一条，一条变红-->
+  <ul>
+    <li :key="index" :class="getClass()" v-on:click="changeColor" v-for="(value,index) in message">{{value}}--{{title}}</li>
+  </ul>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el : '#app',
+    data : {
+      message : ['全力以赴' , '幸福客栈' , '电竞天才' , '十三号病房' , '耀眼的你' , '总想把爱献给您'],
+      isRed : true
+    },
+    methods : {
+      changeColor : function (index){
+        this.isRed = !this.isRed
+      },
+      getClass : function (){
+        return {colorClass:this.isRed}
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

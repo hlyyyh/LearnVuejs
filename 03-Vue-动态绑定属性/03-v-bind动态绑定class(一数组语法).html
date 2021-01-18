@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .active{
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!--1、数组语法,用的比对象语法少-->
+  <h2 class="oldClass" :class="[active,line]">{{message}}</h2>
+  <button  v-on:click="btnClick">改变颜色</button>
+
+  <!--3、太长了可以放置到methods中，需要加小括号；v-on不用加是被省略了-->
+  <h2 class="oldClass" :class="getClass()">{{message}}2</h2>
+  <!--4、compute计算属性，后面补充-->
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el : '#app',
+    data : {
+      message : "Hello word",
+      imgUrl : "../img/logo.png",
+      aHref : "http://www.baidu.com",
+      active : 'active',
+      line : 'line',
+      isActive : true,
+      isLine : true
+    },
+
+    methods : {
+      btnClick : function (){
+        this.active = !this.active
+      },
+      getClass : function (){
+        return [this.active,this.line]
+      }
+    }
+
+  })
+</script>
+
+</body>
+</html>
