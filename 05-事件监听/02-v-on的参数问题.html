@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{message}}</h2>
+  <!--1、事件调用没有参数，()可以使用-->
+  <button @click="btn1Click">按钮1</button>
+  <button @click="btn1Click()">按钮1</button>
+  <br>
+  <!--2、在事件定义时，写方法时省略了小括号，但是在方法本身是需要一个参数的，这个时候，vue会将默认浏览器生成的event事件对象作为参数传入到方法中-->
+  <button @click="btn2Click('btn2Click参数')">按钮2</button>
+  <!--函数需要参数，但没传，形参是undefined-->
+  <button @click="btn2Click()">按钮2</button>
+  <!--函数需要参数，但没写括号，形参是MouseEvent--><!--当你鼠标在浏览器操作时，浏览器会生成对象，是一个event对象-->
+  <button @click="btn2Click">按钮2</button>
+  <br>
+  <!--3、在方法定义时，需要event对象，同时需要其他参数-->
+  <!--在调用方法时，手动获取浏览器参数的event对象：$event-->
+  <button @click="btn3Click('abc',$event)">按钮3</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '初始值'
+    },
+    methods: {
+      btn1Click() {
+        this.message='按钮1';
+      },
+      btn2Click(event) {
+        this.message='按钮2' + ' ' + event;
+      },
+      btn3Click(abc, event) {
+        this.message='按钮3' + ' ' + abc + ' '+ event;
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

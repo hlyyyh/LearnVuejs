@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h2 v-if="isShow">{{message1}}</h2>
+  <h2 v-else>{{message2}}</h2>
+  <button @click="btnClick">button</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message1: 'v-if',
+      message2: 'v-else',
+      isShow: true
+    },
+    methods: {
+      btnClick() {
+        this.isShow = !this.isShow
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

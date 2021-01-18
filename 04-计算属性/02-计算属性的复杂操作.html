@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- 计算总年龄-->
+  <h2>总年龄：{{people[0].age+people[1].age+people[2].age}}</h2>
+  <!-- 方法二：计算属性-->
+  <h2>总年龄：{{fullAge}}</h2>
+  <h2>总年龄（ES6语法1）：{{fullAgeES6_1}}</h2>
+  <h2>总年龄（ES6语法2）：{{fullAgeES6_2}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      people: [
+        {id: 1, title: '刘', age: 20},
+        {id: 2, title: '关', age: 21},
+        {id: 3, title: '张', age: 23},
+      ]
+    },
+
+    //计算属性（computed只计算一次，methods调用几次执行几次，没有缓存）
+    computed: {
+      fullAge: function (){
+        //filter/map/reduce
+        //return this.person.reduce
+        let result=0;
+        for (let i=0; i<this.people.length; i++){
+          result += this.people[i].age
+        }
+        return result
+      },
+      fullAgeES6_1: function (){
+        let result=0;
+        for (let i in this.people) {
+          result += this.people[i].age
+        }
+        return result
+      },
+      fullAgeES6_2: function (){
+        let result=0;
+        for (let person of this.people) {
+          result += person.age
+        }
+        return result
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

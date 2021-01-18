@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    [v-cloak]{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!--以后尽量不用，因为写的模板会被渲染成一些函数，真正执行是虚拟dom-->
+<div id="app" v-cloak>
+  <!--cloak斗篷：真正解析代码才渲染-->
+  <h2>{{message}}，小明</h2>
+  <h2 v-text="message">，小明</h2>
+
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  //在vue解析前，div有一个v-cloak属性
+  //在vue解析后，div没有一个v-cloak属性
+  //通过样式控制
+  setTimeout(function (){
+    const app = new Vue({
+      el : '#app',
+      data : {
+        message : '你好',
+
+      }
+    })
+  },3000)
+
+</script>
+
+</body>
+</html>
