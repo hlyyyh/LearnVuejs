@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--注意：在官方推荐中，给v-for添加一个key，为了更高效的更新虚拟dom-->
+
+  <!--1、在遍历过程中,没有使用下标值-->
+  <ul>
+    <li v-for="item in names">{{item}}</li>
+  </ul>
+  <br>
+  <!--2、在遍历过程中,加入使用下标值-->
+  <ul>
+    <li v-for="(item,i) in names">{{i+1}}-{{item}}</li>
+  </ul>
+
+  <!--3、在第二和第三个元素中间删除一个元素app.names.splice(第几个元素开始，删除几个元素)-->
+
+  <!--4、在第二和第三个元素中间插入一个元素F:app.names.splice(第几个元素开始，0表示不删除，插入的元素)-->
+
+  <!--5、数组渲染后，中间插入一个元素的渲染过程-->
+
+  <!--5、虚拟dom的diff算法：实际做法，从指定位置以此替换，再加一个元素-->
+
+  <!--6、中间插入一个元素：加入key，并保证key和实际展示的东西一一对应-->
+  <ul>
+    <li v-for="(item,i) in names" :key="item">{{item}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word",
+      names: ['A','B','C','D','E']
+    }
+  })
+</script>
+
+</body>
+</html>

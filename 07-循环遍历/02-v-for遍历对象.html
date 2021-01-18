@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--1、在遍历对象中,如果只是获取一个值，那么只是value-->
+  <ul>
+    <li v-for="item in people">{{item}}</li>
+  </ul>
+  <br>
+  <!--2、在遍历对象中,获取key,value-->
+  <ul>
+    <li v-for="(value,key) in people">{{value}}-{{key}}</li>
+  </ul>
+  <!--2、在遍历对象中,获取key,value,index-->
+  <ul>
+    <li v-for="(value,key,i) in people">{{value}}-{{key}}--{{i}}</li>
+  </ul>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word",
+      people: {
+        name: '刘备',
+        age: 20,
+        ack: 80
+      }
+    }
+  })
+</script>
+
+</body>
+</html>
