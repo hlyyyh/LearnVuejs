@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--通过v-bind绑定-->
+  <cpn-parent v-bind:pstr="vueToParentStr"
+              :parr="vueToParentArr"
+              :pvtocstr="vueToChildStr"
+              :pvtocarr="vueToChildArr"></cpn-parent>
+</div>
+
+<template id="template-child">
+  <div>
+    <label>子组件</label>
+    <h2>vue向子组件传递的字符串：{{cstr}}</h2>
+    <ul>vue向子组件传递的数组：
+      <li v-for="item in carr">{{item}}</li>
+    </ul>
+  </div>
+</template>
+
+<template id="template-parent">
+  <div>
+    <label>父组件</label>
+    <h2>vue向父组件传递的字符串：{{pstr}}</h2>
+    <ul>vue向父组件传递的数组：
+      <li v-for="item in parr">{{item}}</li>
+    </ul>
+    <cpn-child :cstr="pvtocstr" :carr="pvtocarr"></cpn-child>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  //父传子：props，在子构造器中加入props属性
+
+  const cpnChild = {
+    template: "#template-child",
+    props: ["cstr","carr"]
+  }
+
+  const cpnParent = {
+    template: "#template-parent",
+    components: {
+      "cpn-child": cpnChild
+    },
+    //props的三种写法
+    //1、数组写法
+    props: ["pstr","parr","pvtocstr","pvtocarr"]
+    /*props: {
+
+    }*/
+  }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word",
+      vueToParentStr: "parentStr",
+      vueToParentArr: ['A','B','C','D','E'],
+      vueToChildStr: "childStr",
+      vueToChildArr: ['a','b','c','d','e']
+    },
+    components: {
+      "cpn-parent": cpnParent
+    }
+  })
+</script>
+
+</body>
+</html>

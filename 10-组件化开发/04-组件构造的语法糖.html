@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn-global></cpn-global>
+  <cpn-local></cpn-local>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  //1、全局组件构造的语法糖
+  Vue.component('cpn-global',{
+    template: `
+    <div>
+      <h2>全局组件</h2>
+      <p>全局组件第一行内容</p>
+      <p>全局组件第二行内容</p>
+    </div>
+    `
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word"
+    },
+    components: {
+      'cpn-local': {
+        template: `
+        <div>
+          <h2>局部组件</h2>
+          <p>局部组件第一行内容</p>
+          <p>局部组件第二行内容</p>
+        </div>
+        `
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

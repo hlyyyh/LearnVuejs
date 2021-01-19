@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn-global></cpn-global>
+  <cpn-local></cpn-local>
+</div>
+
+
+<!--注意：-->
+<!--1、组件读取的数据存放在components的data中，而非vue实例中，报错且不推荐这么做，不然vue会很臃肿-->
+<!--2、components中的data是一个function，返回对象-->
+<template id="template-local">
+  <div>
+    <h2>{{title}}</h2>
+    <p>{{content}}</p>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      title: "i am title in vue",
+      content: "i am content in vue"
+    },
+    components: {
+      'cpn-local': {
+        template: '#template-local',
+        data() {
+          return {
+            title: "i am title in components",
+            content: "i am content in components"
+          }
+        }
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

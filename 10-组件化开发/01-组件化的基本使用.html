@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- 一、vue中组件化的思想：它提供了一种抽象，通过开发一个个独立可复用的小组件构造应用-->
+<!--                  任何应用都会被抽象成一个组件树-->
+
+
+<!-- 二、vue中组件的使用步骤：-->
+<!-- 1、创建组件构造器：调用Vue.extend()方法创建组件构造器-->
+<!-- 2、注册组件：调用Vue.component()方法注册组件，如果是全局组件（区分全局组件，局部组件）-->
+<!-- 3、使用组件：在Vue实例的作用范围内使用组件-->
+
+
+
+<div id="app">
+  <!-- 3、使用组件：在Vue实例的作用范围内使用组件-->
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  //1、创建组件构造器：调用Vue.extend()方法创建组件构造器
+  const cpnc = Vue.extend({
+    template: `
+    <div>
+  <h2>我是标题</h2>
+  <p>我是第一行内容</p>
+  <p>我是第二行内容</p>
+</div>
+`
+  })
+
+  //2、注册组件（全局组件）
+  Vue.component('my-cpn',cpnc)
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      //ES5：通过双引号或单引号，和+
+      message: "Hello"
+    }
+  })
+
+  //解析：Vue.extend()
+  //调用创建的是一个组件构造器
+  //通常创建组件构造器时，传入template代表我们自定义组件的模板
+  //该模板就是在使用到组件的地方，要显示的HTML代码
+  //事实上，这种写法在Vue2.x的文档中几乎已经看不到了，它会直接使用语法糖，但很多文档都会提到这种方式，而且这种方式也是后面的基础
+
+  //解析：Vue.component()
+  //将上述组件构造器注册为一个组件，并给它起一个组件的标签名称
+  //两个参数：1、注册组件的标签名 2、组件构造器
+
+  //组件必须挂在在某个Vue实例下，否则不会生效
+</script>
+
+
+</body>
+</html>

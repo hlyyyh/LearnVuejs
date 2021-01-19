@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn-local></cpn-local>
+  <cpn-local></cpn-local>
+  <cpn-local></cpn-local>
+</div>
+
+
+<!--原因：-->
+<!--组件的作用是为了抽出来便于服用，如果直接返回对象，那么多个复用的组件就会操作同一个对象-->
+
+<template id="template-local">
+  <div>
+    <h2>{{counter1}}</h2>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  let data = {
+    counter1: 0
+  }
+  const app = new Vue({
+    el: '#app',
+    data: {
+      title: "i am title in vue",
+      content: "i am content in vue"
+    },
+    components: {
+      'cpn-local': {
+        template: '#template-local',
+        //使用同一个对象
+        // data() {
+        //   return data
+        // },
+        data() {
+          return {
+            counter1: 0
+          }
+        },
+
+        methods: {
+          increment() {
+            this.counter1++
+          },
+          decrement() {
+            this.counter1--
+          }
+        }
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

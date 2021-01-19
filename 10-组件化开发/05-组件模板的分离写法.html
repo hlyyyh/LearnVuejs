@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn-global></cpn-global>
+  <cpn-local></cpn-local>
+</div>
+
+<!--1、通过script标签，但是类型必须是"text/x-template"，并且使用id-->
+<script type="text/x-template" id="template-global">
+  <div>
+    <h2>全局组件</h2>
+    <p>全局组件第一行内容</p>
+    <p>全局组件第二行内容</p>
+  </div>
+</script>
+
+<!--2、通过script标签，但是类型必须是"text/x-template"，并且使用id-->
+<template id="template-local">
+  <div>
+    <h2>局部组件</h2>
+    <p>局部组件第一行内容</p>
+    <p>局部组件第二行内容</p>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+
+  Vue.component('cpn-global',{
+    template: '#template-global'
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word"
+    },
+    components: {
+      'cpn-local': {
+        template: '#template-local'
+      }
+    }
+  })
+</script>
+
+</body>
+</html>
