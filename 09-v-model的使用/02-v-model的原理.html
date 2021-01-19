@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--v-model：也可以用作textarea-->
+  <!--v-model：相当于两个指令的结合-->
+  <label for="">input</label>
+  <input type="text" v-model="message">
+  <br>
+  <label for="">textarea</label>
+  <textarea name="" id="" cols="30" rows="10" v-model="message">textarea</textarea>
+
+  <br>
+  <!--v-model：相当于两个指令的结合-->
+  <!--v-bind:value，单项绑定-->
+  <!--v-on:input，input事件用于监听用户输入的信息，单项绑定-->
+  <label for="">通过v-bind:value和v-on:input实现v-model功能</label>
+  <input type="text" :value="message" @input="valueChange">
+  <input type="text" :value="message" @input="message = $event.target.value">
+
+  <h2>message:{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word"
+    },
+    methods: {
+      valueChange(event) {
+        this.message = event.target.value;
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

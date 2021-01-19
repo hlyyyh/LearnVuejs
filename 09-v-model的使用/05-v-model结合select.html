@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--select 分为单选和多选-->
+  <!--1、单选-->
+  <select name="ab" v-model="person">
+    <option value="刘">刘</option>
+    <option value="关">关</option>
+    <option value="张">张</option>
+    <option value="赵">赵</option>
+  </select>
+  <h2>{{person}}</h2>
+  <br>
+
+  <!--2、复选：按住ctrl键-->
+  <select name="ab" v-model="people" multiple>
+    <option value="刘">刘</option>
+    <option value="关">关</option>
+    <option value="张">张</option>
+    <option value="赵">赵</option>
+  </select>
+  <h2>{{people}}</h2>
+
+  <!--值绑定-->
+  <!--真实开发环境，不是写死，而是通过后台获取数据-->
+  <label :for="item" v-for="item in peopleFrom">
+    <input type="checkbox" :id="item" :value="item" v-model="peopleTo">{{item}}
+  </label>
+  <h2>{{peopleTo}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      person: '赵',  //单选对应值
+      people: [],  //多选对应数组
+      peopleFrom: ['刘','关','张','赵','马'],   //模拟从后台获取的数据
+      peopleTo: []  //选中后存入
+    }
+  })
+</script>
+
+</body>
+</html>

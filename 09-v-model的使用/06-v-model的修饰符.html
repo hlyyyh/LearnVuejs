@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--1、lazy：v-model是实时同步数据更新，lazy使之失去焦点或点击回车时才同步-->
+  <input type="text" v-model.lazy="message">lazy
+  <h2>{{message}}</h2>
+
+  <!--2、number：v-model默认都是string类型,使用了number修饰符后会变成number类型-->
+  <br>
+  <input type="number" v-model="num">未使用number修饰符
+  <br>
+  <input type="number" v-model.number="num">使用number修饰符
+  <h2>数据：{{num}}--数据类型：{{typeof num}}</h2>
+
+
+  <!--3、trim：去掉字符串两边空格，浏览器默认会去除，在console中可以看出-->
+  <br>
+  <input type="text" v-model.trim="message">trim
+  <h2>{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: "Hello word",
+      num: 0
+    }
+  })
+</script>
+
+</body>
+</html>

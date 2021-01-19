@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!--checkbox分为单选框和多选框-->
+  <!--1、单选框-->
+  <label for="agree">
+    <input type="checkbox" v-model="isAgree" id="agree">同意协议
+  </label>
+  <button :disabled="!isAgree">下一步</button>
+  <h2>{{isAgree}}</h2>
+  <br>
+  <!--2、复选框-->
+  <!--不需要label，一般一个label和一个input绑定-->
+  <input type="checkbox" v-model="people" value="刘">刘
+  <input type="checkbox" v-model="people" value="关">关
+  <input type="checkbox" v-model="people" value="张">张
+  <input type="checkbox" v-model="people" value="赵">赵
+  <h2>{{people}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      isAgree: true,  //单选框对应布尔值
+      people: []  //多选框对应数组
+    }
+  })
+</script>
+
+</body>
+</html>
