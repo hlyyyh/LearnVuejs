@@ -9,6 +9,7 @@
 <div id="app">
   <!--切换用户案例-->
   <span v-if="isUser">
+    <!--for的作用是点击标签，可以绑定的其他元素-->
     <label for="username">用户帐号</label>
     <input type="text" id="username" placeholder="用户帐号">
   </span>
@@ -22,6 +23,7 @@
 
 <script src="../js/vue.js"></script>
 <script>
+  Vue.component()
   const app = new Vue({
     el: '#app',
     data: {
