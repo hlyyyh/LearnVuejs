@@ -11,7 +11,8 @@
   <cpn-parent v-bind:pstr="vueToParentStr"
               :parr="vueToParentArr"
               :pvtocstr="vueToChildStr"
-              :pvtocarr="vueToChildArr"></cpn-parent>
+              :pvtocarr="vueToChildArr"
+              :pmsg="msg"></cpn-parent>
 </div>
 
 <template id="template-child">
@@ -31,17 +32,27 @@
     <ul>vue向父组件传递的数组：
       <li v-for="item in parr">{{item}}</li>
     </ul>
+    <h1>自定义类型：{{pmsg}}</h1>
     <cpn-child :cstr="pvtocstr" :carr="pvtocarr"></cpn-child>
   </div>
 </template>
 
 <script src="../js/vue.js"></script>
 <script>
-  //父传子：props，在子构造器中加入props属性
 
+  function Msg(str,arr) {
+    this.str = str;
+    this.arr = arr
+  }
+
+  //父传子：props，在子构造器中加入props属性
   const cpnChild = {
     template: "#template-child",
-    props: ["cstr","carr"]
+    //props: ["cstr","carr"]
+    props: {
+      cstr: String,
+      carr: Array,
+    }
   }
 
   const cpnParent = {
@@ -49,13 +60,49 @@
     components: {
       "cpn-child": cpnChild
     },
+
     //props的三种写法
     //1、数组写法
-    props: ["pstr","parr","pvtocstr","pvtocarr"]
-    /*props: {
+    //props: ["pstr","parr","pvtocstr","pvtocarr"]
 
-    }*/
+    //2、对象写法
+    props: {
+      //2.1、类型限制：String,Number,Boolean,Array,Object,Date,Function,Symbol
+      //2.1.1、基础的类型检查（`null` 匹配任何属性）
+      parr: Array,
+      //2.1.2、多个可能类型
+      pstr: [String,Number],
+      //2.2、通过使用对象，实现一些其他控制
+      //2.2.1、类型、默认值、是否必填
+      pvtocarr: {
+        type: Array,
+        default: function () {
+          return ['1','2','3']; //2.5.2上，数组写法需要使用函数
+        },
+        required: true //使用时必传
+      },
+      //2.3、自定义验证函数
+      pvtocstr: {
+        validator: function (value) {
+          return ["childStr","childStr2"].indexOf(value) !==-1
+        }
+      },
+      pmsg: {
+        validator: function (value) {
+          if(value instanceof Msg){
+            console.log("===========匹配到"+value)
+            return true;
+          }else{
+            console.log("===========没匹配到")
+            return false;
+          }
+
+        }
+      }
+    }
   }
+
+
 
   const app = new Vue({
     el: '#app',
@@ -64,7 +111,10 @@
       vueToParentStr: "parentStr",
       vueToParentArr: ['A','B','C','D','E'],
       vueToChildStr: "childStr",
-      vueToChildArr: ['a','b','c','d','e']
+      vueToChildArr: ['a','b','c','d','e'],
+      msgStr: "msgStr",
+      msgArr: ['msg','arr'],
+      msg: new Msg("msgStr",['msg','arr'])
     },
     components: {
       "cpn-parent": cpnParent

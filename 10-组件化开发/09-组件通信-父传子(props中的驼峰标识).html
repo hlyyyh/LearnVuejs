@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn :c-info="info"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>{{cInfo}}</h2>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+  const cpn = {
+    template: '#cpn',
+    props: {
+      //cInfo: {  不写驼峰标识原因，v-bind不支持驼峰
+      //写cInfo，标签使用c-info
+      cInfo: {
+        type: Object,
+        default() {
+          return {}
+        }
+      }
+    }
+  }
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+        name: '',
+        age: 20,
+        height: 2.00
+      }
+    },
+    components:{
+      cpn
+    }
+  })
+</script>
+
+</body>
+</html>

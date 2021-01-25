@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn :number1="pnum1"
+       :number2="pnum2"
+       @dnum1change="pNum1Change"
+       @dnum2change="pNum2Change"
+  />
+</div>
+
+<template id="cpn">
+  <div>
+
+    <!--vue不推荐，因为一旦父组件定义了属性，希望通过父组件修改属性
+    通过一个data或者计算属性实现
+    Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders.
+    Instead, use a data or computed property based on the prop's value. Prop being mutated: "number1"-->
+    <h2>props：{{number1}}</h2>
+    <h2>data：{{dnumber1}}</h2>
+    <!--<input type="text" v-model="dnumber1" @input="data1Change">-->
+    <input type="text" :value="dnumber1" @input="num1Input">
+
+    <h2>props：{{number2}}</h2>
+    <h2>data：{{dnumber2}}</h2>
+    <!--<input type="text" v-model="dnumber2">-->
+    <input type="text" :value="dnumber2" @input="num2Input">
+  </div>
+</template>
+<script src="../js/vue.js"></script>
+
+<script>
+  //需求：
+  //1、两个数字num1,num2，父子之间实现双向绑定
+  //2、改变num1，num2是num1的100倍；改变num2，num1是num2的0.01
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      pnum1: 1,
+      pnum2: 2
+    },
+    methods: {
+      pNum1Change(value) {
+        //Invalid prop: type check failed for prop "number1".
+        //Expected Number with value 112, got String with value "112".
+        //原因默认传入string
+        //console.log(typeof value)
+
+        this.pnum1 = parseInt(value)
+      },
+      pNum2Change(value) {
+        this.pnum2 = parseInt(value)
+      }
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        props: {
+          number1: Number,
+          number2: Number,
+        },
+        data() {
+          return {
+            //根据props中的数据，初始化data中的数据
+            dnumber1: this.number1,
+            dnumber2: this.number2,
+          }
+        },
+        methods: {
+          num1Input(event) {
+            //1、修改data中的数据
+            this.dnumber1 = event.target.value
+            //2、发射到父组件
+            this.$emit('dnum1change',this.dnumber1)
+            //3、改变num1，num2是num1的100倍；改变num2，num1是num2的0.01
+            this.dnumber2 = this.dnumber1 * 100
+            this.$emit('dnum2change',this.dnumber2)
+          },
+          num2Input(event) {
+            this.dnumber2 = event.target.value
+            this.$emit('dnum2change',this.dnumber2)
+            this.dnumber1 = this.dnumber2 * 0.01
+            this.$emit('dnum1change',this.dnumber1)
+          }
+        }
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

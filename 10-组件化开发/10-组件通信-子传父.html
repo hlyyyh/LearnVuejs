@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!--父组件模板-->
+<div id="app">
+  <h2>父组件获取子组件的数据：{{info}}</h2>
+  <!--默认传递的是子组件发射的自定义事件的数据-->
+  <cpn @cclick="btnClick">
+  </cpn>
+</div>
+
+<!--子组件模板-->
+
+<template id="cpn">
+  <div>
+    <button v-for="item in titles" @click="cClick(item)">{{item.name}}</button>
+  </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+//自定义事件的流程：
+//1、在子组件中，通过this.$emit()触发事件
+//2、在父组件中，通过v-on事件来监听子组件事件（v-on不仅仅监听dom事件，也可以用于监听组件间的自定义事件）
+
+  //子组件
+  const cpn = {
+    template: '#cpn',
+    data() {
+      return {
+        titles: [
+          {id: '1', name: '故事'},
+          {id: '2', name: '动画'},
+          {id: '3', name: '科教'},
+          {id: '4', name: '重大'},
+        ],
+      }
+    },
+    methods: {
+      cClick(item) {
+        //console.log('子组件打印：'+item.name)
+        //子组件，通过发射，将自定义事件，传递给父组件
+        //注意不要使用驼峰
+        this.$emit('cclick',item)
+      }
+    }
+
+  }
+  //父组件
+  const app = new Vue({
+    el: '#app',
+    data: {
+      info: {
+
+      }
+    },
+    methods: {
+      btnClick(item) {
+        //console.log('父组件打印：'+item.name)
+        this.info = item
+      }
+    },
+    components:{
+      cpn
+    }
+  })
+</script>
+
+</body>
+</html>
